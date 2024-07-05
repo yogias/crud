@@ -1,0 +1,257 @@
+karyawan = [
+    {"nomor": 1, "nama_karyawan": "Andrew", "tanggal_lahir": "Bandung, 19 Januari 2002", "gender": "Pria", 
+     "alamat": "Jakarta", "hp": "0813", "jabatan": "Teknisi", "status": "Aktif", "gaji_pokok": 1500000, 
+     "upah_harian": 10, "hari_kerja": 30, "upah_lembur": 2, "jam_lembur": 0},
+    {"nomor": 2, "nama_karyawan": "Brown", "tanggal_lahir": "Surabaya, 5 Februari 1998", "gender": "Wanita", 
+     "alamat": "Malang", "hp": "0821", "jabatan": "Programmer", "status": "Aktif", "gaji_pokok": 2000000, 
+     "upah_harian": 10, "hari_kerja": 30, "upah_lembur": 2, "jam_lembur": 5},
+    {"nomor": 3, "nama_karyawan": "Ciro", "tanggal_lahir": "Yogyakarta, 10 Maret 2001", "gender": "Pria", 
+     "alamat": "Yogyakarta", "hp": "0812", "jabatan": "Sales", "status": "Aktif", "gaji_pokok": 1750000, 
+     "upah_harian": 10, "hari_kerja": 20, "upah_lembur": 2, "jam_lembur": 0},
+]
+
+
+hitung = []
+
+def tampil_karyawan():
+    print("-------------------------------------------------------")
+    print("|No|Nama Karyawan|  Upah Harian | Hari\t |Upah Lembur| Jam |")
+    print("-----------------------------------------------------")
+    for item in karyawan:                   print(f"|{item['nomor']} |{item['nama_karyawan']}\t |\t{item['upah_harian']}\t|{item['hari_kerja']}\t |{item['upah_lembur']}\t     |{item['jam_lembur']}\t\t|")
+    print("------------------------------------------------------")
+def tambah_karyawan():
+    nama = input("Masukkan nama karyawan baru: ")
+    upah_harian = int(input("Masukkan Upah Harian: "))
+    hari_kerja = int(input("Masukkan Jumlah Hari Kerja Karyawan: "))
+    upah_lembur = int(input("Masukkan Upah Lembur perjam: "))
+    jam_lembur = int(input("Masukkan Jam Lembur Karyawan: "))
+
+    while True:
+        tambah_data = input("Apakah Anda ingin menambahkan data karyawan baru? (Y/T): ").upper()
+        if tambah_data in ("Y", "T"):
+            if tambah_data == "Y":
+                # Data lengkap
+                tanggal_lahir = input("Masukkan Tempat, Tanggal Lahir: ")
+                gender = input("Masukkan Jenis Kelamin: ")
+                alamat = input("Masukkan Alamat: ")
+                hp = input("Masukkan Nomor HP: ")
+                jabatan = input("Masukkan Jabatan: ")
+                status = input("Masukkan Status: ")
+                gaji_pokok = int(input("Masukkan Gaji Pokok: "))
+
+                if karyawan:
+                    max_nomor = karyawan[0]['nomor']
+                    for item in karyawan:
+                        max_nomor = max(max_nomor, item['nomor'])
+                else:
+                    max_nomor = 0
+
+                nomor = max_nomor + 1
+                karyawan.append({"nomor": nomor,
+                                "nama_karyawan": nama,
+                                "upah_harian": upah_harian,
+                                "hari_kerja": hari_kerja,
+                                "upah_lembur": upah_lembur,
+                                "jam_lembur": jam_lembur,
+                                "tanggal_lahir": tanggal_lahir,
+                                "gender": gender,
+                                "alamat": alamat,
+                                "hp": hp,
+                                "jabatan": jabatan,
+                                "status": status,
+                                "gaji_pokok": gaji_pokok})
+                print(f"Karyawan {nama} berhasil ditambahkan!")
+                break
+            else:
+                # Data belum lengkap (diabaikan)
+                pass
+
+def update_karyawan():
+    tampil_karyawan()
+
+    karyawan_nomor = int(input("Masukkan ID Karyawan yang akan diupdate: "))
+    
+    for item in karyawan:
+          if item['nomor'] == karyawan_nomor:
+            nama_baru = input(f"Masukkan nama baru untuk karyawan {item['nama_karyawan']} (kosongkan untuk tidak mengubah): ")
+            upah_harian_baru = input(f"Masukkan Upah Harian baru untuk karyawan {item['nama_karyawan']} (kosongkan untuk tidak mengubah): ")
+            hari_kerja_baru = input(f"Masukkan Jumlah Hari Kerja baru untuk karyawan {item['nama_karyawan']} (kosongkan untuk tidak mengubah): ")
+            upah_lembur_baru = input(f"Masukkan Upah Lembur baru untuk karyawan {item['nama_karyawan']} (kosongkan untuk tidak mengubah): ")
+            jam_lembur_baru = input(f"Masukkan Jumlah Jam Lembur baru untuk karyawan {item['nama_karyawan']} (kosongkan untuk tidak mengubah): ")
+
+            if nama_baru:
+                item['nama_karyawan'] = nama_baru
+            if upah_harian_baru: item['upah_harian']=int(upah_harian_baru)
+            if hari_kerja_baru:  item['hari_kerja'] =int(hari_kerja_baru)
+            if upah_harian_baru: item['upah_lembur']=int(upah_lembur_baru)
+            if jam_lembur_baru:         item['jam_lembur']=int(jam_lembur_baru)
+            print(f"Karyawan dengan ID {karyawan_nomor} berhasil diupdate!") 
+            return
+    print(f"Karyawan dengan ID {karyawan_nomor} tidak ditemukan.")
+
+def delete_karyawan():
+    tampil_karyawan()
+
+    karyawan_nomor = int(input("Masukkan ID karyawan yang akan dihapus: "))
+    
+    for item in karyawan:
+        if item['nomor'] == karyawan_nomor:
+            karyawan.remove(item)
+            print(f"Karyawan dengan ID {karyawan_nomor} berhasil dihapus!")
+            return
+    print(f"karyawan dengan ID {karyawan_nomor} tidak ditemukan.")
+
+def tampil_hitung():
+    hitung.clear()
+    bonus_persen = 0.1   
+    total_bonus = 0
+    
+    for item in karyawan:
+        quantity_hari = 30 if item["hari_kerja"] == 30 else item["hari_kerja"]
+        quantity_jam = item["jam_lembur"]
+        bonus = bonus_persen if quantity_hari == 30 else 0
+        bonus_upah = (item["upah_harian"] * quantity_hari) * bonus
+        total_upah_karyawan = (item["upah_harian"] * quantity_hari) + (item["upah_lembur"] * quantity_jam) + bonus_upah
+        hitung.append({
+            "nama_karyawan": item["nama_karyawan"],
+            "upah_harian": item["upah_harian"],
+            "hari_kerja": quantity_hari,
+            "upah_lembur": item["upah_lembur"],            "jam_lembur": quantity_jam,
+            "bonus" : bonus,
+            "total_bonus" : bonus_upah,
+            "total_upah": total_upah_karyawan
+        })
+        total_bonus += bonus_upah
+    print("==============PERHITUNGAN UPAH KARYAWAN=================")
+    print("------------------------------------------------------------")
+    print("No|Nama Karyawan|Upah Harian|Hari|Upah Lembur|Jam|Total Upah")
+    print("-" * 60)
+    
+    for index, item in enumerate(hitung, start=1):
+        print(f"{index:0} | {item['nama_karyawan']:11} | {item['upah_harian']:8}  |{item['hari_kerja']:3}  | {item['upah_lembur']:7}  |{item['jam_lembur']:2} | {item['total_upah']}")
+        print("-" * 60)
+        
+    total_upah_keseluruhan = sum([item["total_upah"] for item in hitung])
+    print(f"Total Upah Bonus Karyawan : {total_bonus}")
+    print(f"\nTotal Upah Keseluruhan: {total_upah_keseluruhan}\n")
+
+def data_pribadi():
+    global karyawan
+    if karyawan: 
+        print("Daftar Data Karyawan:")
+        for item in karyawan:
+            print(f"Nama: {item['nama_karyawan']}")
+            print(f"Tanggal Lahir: {item['tanggal_lahir']}")
+            print(f"Gender: {item['gender']}")
+            print(f"Alamat: {item['alamat']}")
+            print(f"Nomor HP: {item['hp']}")
+            print(f"Jabatan: {item['jabatan']}")
+            print(f"Status Karyawan: {item['status']}")
+            print(f"Gaji Pokok: {item['gaji_pokok']}")
+            print(f"Upah Harian: {item['upah_harian']}")
+            print(f"Hari Kerja: {item['hari_kerja']}")
+            print(f"Upah Lembur: {item['upah_lembur']}")
+            print(f"Jam Kerja Lembur: {item['jam_lembur']}")
+            print("-" * 30)  
+
+        tambah_data = input("Apakah Anda ingin menambahkan data karyawan baru? (Y/T): ")
+        if tambah_data.upper() == "Y":
+            input_data_baru()  
+    else:
+        input_data_baru()
+
+def input_data_baru():
+    nama = input("Masukkan nama karyawan baru: ")
+    tanggal_lahir = input("Masukan Tanggal Lahir: ")
+    gender = input("Masukkan gender Karyawan: ")
+    alamat = input("Masukkan Alamat : ")
+    hp = int(input("Masukkan Nomor HP: "))
+    jabatan = input("Masukkan Jabatan: ")
+    status = input("Masukkan Status Karyawan: ")
+    gaji_pokok= int(input("Masukkan Gaji Pokok: "))
+    upah_harian = int(input("Masukkan Upah Harian: "))
+    hari_kerja = int(input("Masukkan Hari Kerja: "))
+    upah_lembur = int(input("Masukkan Upah Lembur: "))
+    jam_lembur = int(input("Masukkan Jam Kerja Lembur: "))
+
+    global karyawan 
+
+    max_nomor = 0
+    if karyawan:
+        max_nomor = karyawan[0]['nomor']
+        for item in karyawan:
+            max_nomor = max(max_nomor, item['nomor'])
+
+    nomor = max_nomor + 1
+    karyawan.append({"nomor": nomor,
+                     "nama_karyawan": nama,
+                     "tanggal_lahir": tanggal_lahir,
+                     "gender": gender,
+                     "alamat": alamat,
+                     "hp": hp,
+                     "jabatan": jabatan,
+                     "status": status,
+                     "gaji_pokok": gaji_pokok,
+                     "upah_harian": upah_harian,
+                     "hari_kerja": hari_kerja,
+                     "upah_lembur": upah_lembur,
+                     "jam_lembur": jam_lembur})
+
+    print(f"Data Karyawan {nama} berhasil ditambahkan!")
+
+def cek_data():
+    karyawan_nomor = int(input("Masukkan nomor ID karyawan yang akan dicheck: "))
+    
+    data_ditemukan = False
+    for item in karyawan:
+        if item['nomor'] == karyawan_nomor:
+            print(f"Nomor ID         : {item['nomor']}")
+            print(f"Nama             : {item['nama_karyawan']}")
+            print(f"Tanggal Lahir    : {item['tanggal_lahir']}")
+            print(f"Jenis Kelamin    : {item['gender']}")
+            print(f"Alamat           : {item['alamat']}")
+            print(f"Nomor HP         : {item['hp']}")
+            print(f"Jabatan          : {item['jabatan']}")
+            print(f"Status           : {item['status']}")
+            print(f"Gaji Pokok       : {item['gaji_pokok']}")
+
+            data_ditemukan = True
+            break
+        
+    if not data_ditemukan:
+        print(f"Data karyawan dengan nomor ID {karyawan_nomor} tidak ada silahkan melakukan input data.")
+
+ 
+
+if __name__ == "__main__":
+    while True:
+        tampil_karyawan()
+        print("\nProgram Upah Karyawan Perusahaan")
+        print("1. Tambah Karyawan")
+        print("2. Update Karyawan")
+        print("3. Hapus Karyawan")
+        print("4. Data Upah Seluruh Karyawan")
+        print("5. Input Data Karyawan")
+        print("6. Cek Data Karyawan")
+        print("7. Keluar")
+        
+        option = int(input("Masukkan pilihan menu: "))
+        
+        match option:
+            case 1:
+                tambah_karyawan()
+            case 2:
+                update_karyawan()
+            case 3:
+                delete_karyawan()
+            case 4:
+                tampil_hitung()
+            case 5:
+                data_pribadi()
+            case 6:
+                cek_data()
+            case 7:
+                break
+            case _:
+                print("Option tidak valid, silahkan masukan option yang valid(1-8)\n")
+                
